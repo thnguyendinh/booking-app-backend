@@ -1,0 +1,3 @@
+echo "node_modules/
+.env
+report.html" > .gitignore

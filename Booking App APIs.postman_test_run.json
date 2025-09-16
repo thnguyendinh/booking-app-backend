@@ -1,0 +1,540 @@
+{
+	"id": "d55d3603-9631-4874-8b33-934307f44b4b",
+	"name": "Booking App APIs Copy",
+	"timestamp": "2025-09-16T12:23:34.746Z",
+	"collection_id": "48449238-3f28695f-8d18-422e-bb44-df0da906086f",
+	"folder_id": 0,
+	"environment_id": "48449238-8f5ccf5a-e6f8-421d-9e96-259850141c99",
+	"totalPass": 14,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-09-16T12:23:31.769Z",
+	"totalFail": 14,
+	"results": [
+		{
+			"id": "1c090cf4-ba9f-4327-a303-421affd5e966",
+			"name": "Register User",
+			"url": "http://localhost:5000/api/auth/register",
+			"time": 241,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has token": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				241
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has token": true
+				}
+			]
+		},
+		{
+			"id": "d4eaf8a8-671d-4c38-a7de-7e7caba1bf14",
+			"name": "Register Admin",
+			"url": "http://localhost:5000/api/auth/register",
+			"time": 217,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has token": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				217
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has token": true
+				}
+			]
+		},
+		{
+			"id": "262492f7-1c99-4255-90c8-bbec028b9f9e",
+			"name": "Register User 2",
+			"url": "http://localhost:5000/api/auth/register",
+			"time": 204,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has token": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				204
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has token": true
+				}
+			]
+		},
+		{
+			"id": "9866d7af-7438-4f29-9fa5-9dc5ab1b89c9",
+			"name": "Login User",
+			"url": "http://localhost:5000/api/auth/login",
+			"time": 162,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has token": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				162
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has token": true
+				}
+			]
+		},
+		{
+			"id": "f4513ea6-57f8-4749-b24a-ad3a5e633f08",
+			"name": "Login Admin",
+			"url": "http://localhost:5000/api/auth/login",
+			"time": 149,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has token": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				149
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has token": true
+				}
+			]
+		},
+		{
+			"id": "0622c5ec-bb9d-40a9-8af2-87631d664dda",
+			"name": "Get Available Rooms",
+			"url": "http://localhost:5000/api/rooms",
+			"time": 59,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				59
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "ff325983-82e7-4337-bd4b-5a8c84064452",
+			"name": "Create Room",
+			"url": "http://localhost:5000/api/rooms",
+			"time": 63,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Room is created": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Room is created": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				63
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Room is created": false
+				}
+			]
+		},
+		{
+			"id": "572cf151-f52e-4aaa-b864-12225804d36b",
+			"name": "Update Room",
+			"url": "http://localhost:5000/api/rooms/",
+			"time": 2,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Room is updated": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Room is updated": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				2
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Room is updated": false
+				}
+			]
+		},
+		{
+			"id": "68581676-af4b-4c7a-a121-e3c8430fb3d8",
+			"name": "Delete Room",
+			"url": "http://localhost:5000/api/rooms/",
+			"time": 4,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Room is deleted": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Room is deleted": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Room is deleted": false
+				}
+			]
+		},
+		{
+			"id": "8c425b41-55df-4fde-99b0-7f147f9681a8",
+			"name": "Create Booking",
+			"url": "http://localhost:5000/api/bookings",
+			"time": 4,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Booking is created": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Booking is created": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Booking is created": false
+				}
+			]
+		},
+		{
+			"id": "6e376fde-bfbe-4aef-8cd3-40bd453ee717",
+			"name": "Get User Bookings",
+			"url": "http://localhost:5000/api/bookings",
+			"time": 57,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				57
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "90f3b265-6a50-41ca-86a9-e666f1bdcfd9",
+			"name": "Cancel Booking",
+			"url": "http://localhost:5000/api/bookings/",
+			"time": 2,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Booking is cancelled": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Booking is cancelled": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				2
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Booking is cancelled": false
+				}
+			]
+		},
+		{
+			"id": "953a49a0-10af-457c-a11b-d726d55f6ba6",
+			"name": "Cancel Booking - Admin",
+			"url": "http://localhost:5000/api/bookings/",
+			"time": 4,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Booking is cancelled by admin": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Booking is cancelled by admin": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Booking is cancelled by admin": false
+				}
+			]
+		},
+		{
+			"id": "c02d98cb-955a-4cd8-87c5-06db3ac0f377",
+			"name": "Cancel Booking - Unauthorized User",
+			"url": "http://localhost:5000/api/bookings/",
+			"time": 4,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 403": false,
+				"Unauthorized access": false
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Unauthorized access": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status code is 403": false,
+					"Unauthorized access": false
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1172,
+	"collection": {
+		"requests": [
+			{
+				"id": "1c090cf4-ba9f-4327-a303-421affd5e966",
+				"method": "POST"
+			},
+			{
+				"id": "d4eaf8a8-671d-4c38-a7de-7e7caba1bf14",
+				"method": "POST"
+			},
+			{
+				"id": "262492f7-1c99-4255-90c8-bbec028b9f9e",
+				"method": "POST"
+			},
+			{
+				"id": "9866d7af-7438-4f29-9fa5-9dc5ab1b89c9",
+				"method": "POST"
+			},
+			{
+				"id": "f4513ea6-57f8-4749-b24a-ad3a5e633f08",
+				"method": "POST"
+			},
+			{
+				"id": "0622c5ec-bb9d-40a9-8af2-87631d664dda",
+				"method": "GET"
+			},
+			{
+				"id": "ff325983-82e7-4337-bd4b-5a8c84064452",
+				"method": "POST"
+			},
+			{
+				"id": "572cf151-f52e-4aaa-b864-12225804d36b",
+				"method": "PUT"
+			},
+			{
+				"id": "68581676-af4b-4c7a-a121-e3c8430fb3d8",
+				"method": "DELETE"
+			},
+			{
+				"id": "8c425b41-55df-4fde-99b0-7f147f9681a8",
+				"method": "POST"
+			},
+			{
+				"id": "6e376fde-bfbe-4aef-8cd3-40bd453ee717",
+				"method": "GET"
+			},
+			{
+				"id": "90f3b265-6a50-41ca-86a9-e666f1bdcfd9",
+				"method": "DELETE"
+			},
+			{
+				"id": "953a49a0-10af-457c-a11b-d726d55f6ba6",
+				"method": "DELETE"
+			},
+			{
+				"id": "c02d98cb-955a-4cd8-87c5-06db3ac0f377",
+				"method": "DELETE"
+			}
+		]
+	}
+}

@@ -1,0 +1,421 @@
+{
+  "info": {
+    "name": "Booking App APIs",
+    "_postman_id": "941fb20e-43a1-4be3-99cd-9301ce571151",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User 1",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Nguyen Van A\", \"email\": \"nguyenvana_test@example.com\", \"password\": \"password123\"}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response has token', function () {",
+              "    pm.expect(pm.response.json().token).to.be.a('string');",
+              "    pm.environment.set('authToken1', pm.response.json().token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Register User 2",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Nguyen Thi B\", \"email\": \"nguyenthib_test@example.com\", \"password\": \"password123\"}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response has token', function () {",
+              "    pm.expect(pm.response.json().token).to.be.a('string');",
+              "    pm.environment.set('authToken2', pm.response.json().token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Register Admin",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Admin User\", \"email\": \"admin_test2@example.com\", \"password\": \"admin123\", \"isAdmin\": true}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response has token', function () {",
+              "    pm.expect(pm.response.json().token).to.be.a('string');",
+              "    pm.environment.set('adminToken', pm.response.json().token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login User 1",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"nguyenvana_test@example.com\", \"password\": \"password123\"}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response has token', function () {",
+              "    pm.expect(pm.response.json().token).to.be.a('string');",
+              "    pm.environment.set('authToken1', pm.response.json().token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login Admin",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"admin_test2@example.com\", \"password\": \"admin123\"}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response has token', function () {",
+              "    pm.expect(pm.response.json().token).to.be.a('string');",
+              "    pm.environment.set('adminToken', pm.response.json().token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Available Rooms",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/rooms",
+        "header": []
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response is an array', function () {",
+              "    pm.expect(pm.response.json()).to.be.an('array');",
+              "    pm.environment.set('roomId', pm.response.json()[0]._id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Room",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/rooms",
+        "header": [
+          { "key": "x-auth-token", "value": "{{adminToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Phòng Suite\", \"description\": \"Phòng cao cấp\", \"price\": 200, \"capacity\": 2}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "pm.test('Room created', function () {",
+              "    pm.expect(pm.response.json().name).to.equal('Phòng Suite');",
+              "    pm.environment.set('newRoomId', pm.response.json()._id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update Room",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/api/rooms/{{newRoomId}}",
+        "header": [
+          { "key": "x-auth-token", "value": "{{adminToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Phòng Suite Updated\", \"description\": \"Phòng cao cấp cập nhật\", \"price\": 250, \"capacity\": 3, \"available\": true}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Room updated', function () {",
+              "    pm.expect(pm.response.json().name).to.equal('Phòng Suite Updated');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Delete Room",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/rooms/{{newRoomId}}",
+        "header": [
+          { "key": "x-auth-token", "value": "{{adminToken}}" }
+        ]
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Room deleted', function () {",
+              "    pm.expect(pm.response.json().msg).to.equal('Room deleted');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Booking",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/bookings",
+        "header": [
+          { "key": "x-auth-token", "value": "{{authToken1}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"roomId\": \"{{roomId}}\", \"checkIn\": \"2025-10-10\", \"checkOut\": \"2025-10-12\"}",
+          "options": { "raw": { "language": "json" } }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "pm.test('Booking created', function () {",
+              "    pm.expect(pm.response.json().totalPrice).to.be.a('number');",
+              "    pm.environment.set('bookingId', pm.response.json()._id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Bookings - User",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/bookings",
+        "header": [
+          { "key": "x-auth-token", "value": "{{authToken1}}" }
+        ]
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response is an array', function () {",
+              "    pm.expect(pm.response.json()).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Bookings - Admin",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/bookings",
+        "header": [
+          { "key": "x-auth-token", "value": "{{adminToken}}" }
+        ]
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response is an array', function () {",
+              "    pm.expect(pm.response.json()).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cancel Booking - Admin",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/api/bookings/cancel/{{bookingId}}",
+        "header": [
+          { "key": "x-auth-token", "value": "{{adminToken}}" }
+        ]
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Booking cancelled', function () {",
+              "    pm.expect(pm.response.json().msg).to.equal('Booking cancelled');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cancel Booking - Unauthorized User",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/api/bookings/cancel/{{bookingId}}",
+        "header": [
+          { "key": "x-auth-token", "value": "{{authToken2}}" }
+        ]
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 403', function () {",
+              "    pm.response.to.have.status(403);",
+              "});",
+              "pm.test('Not authorized', function () {",
+              "    pm.expect(pm.response.json().msg).to.equal('Not authorized to cancel this booking');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" }
+  ]
+}
