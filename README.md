@@ -202,4 +202,4 @@ PORT=5000
   - For production, deploy to Heroku/Render and update `baseUrl`.
   - Set `MONGO_URI` and `JWT_SECRET` in platform environment variables.
 
-For support, create a GitHub Issue or contact [your-email@example.com].
+For support, create a GitHub Issue or contact me.
