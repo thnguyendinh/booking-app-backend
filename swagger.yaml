@@ -1,0 +1,488 @@
+openapi: 3.0.3
+info:
+  title: Booking App Backend API
+  description: RESTful API for a booking application (e.g., hotel, homestay) built with Node.js, Express, and MongoDB. Supports user authentication, room management, and booking management with JWT-based authentication and role-based authorization.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+  - url: https://booking-app-backend.herokuapp.com
+    description: Production server (update with actual deployed URL)
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 68c97476fa5cecfcbd57f88c
+        name:
+          type: string
+          example: Nguyen Van A
+        email:
+          type: string
+          example: nguyenvana@example.com
+        isAdmin:
+          type: boolean
+          example: false
+    Room:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 68c97476fa5cecfcbd57f88c
+        name:
+          type: string
+          example: Phòng Suite
+        description:
+          type: string
+          example: Phòng cao cấp
+        price:
+          type: number
+          example: 200
+        capacity:
+          type: number
+          example: 2
+        available:
+          type: boolean
+          example: true
+    Booking:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 68c97476fa5cecfcbd57f893
+        user:
+          type: string
+          example: 68c97476fa5cecfcbd57f88c
+        room:
+          type: string
+          example: 68c97476fa5cecfcbd57f88c
+        checkIn:
+          type: string
+          format: date-time
+          example: 2025-10-10T00:00:00Z
+        checkOut:
+          type: string
+          format: date-time
+          example: 2025-10-12T00:00:00Z
+        totalPrice:
+          type: number
+          example: 400
+        status:
+          type: string
+          enum: [confirmed, cancelled]
+          example: confirmed
+    Error:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: Error message
+paths:
+  /api/auth/register:
+    post:
+      summary: Register a new user or admin
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Nguyen Van A
+                email:
+                  type: string
+                  example: nguyenvana_test@example.com
+                password:
+                  type: string
+                  example: password123
+                isAdmin:
+                  type: boolean
+                  example: false
+              required: [name, email, password]
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          description: Invalid input or email already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/auth/login:
+    post:
+      summary: Login a user or admin
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: nguyenvana_test@example.com
+                password:
+                  type: string
+                  example: password123
+              required: [email, password]
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/rooms:
+    get:
+      summary: Get all available rooms
+      tags: [Rooms]
+      responses:
+        '200':
+          description: List of available rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+    post:
+      summary: Create a new room (Admin only)
+      tags: [Rooms]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Phòng Suite
+                description:
+                  type: string
+                  example: Phòng cao cấp
+                price:
+                  type: number
+                  example: 200
+                capacity:
+                  type: number
+                  example: 2
+              required: [name, description, price, capacity]
+      responses:
+        '201':
+          description: Room created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized (missing/invalid token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden (not admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/rooms/{id}:
+    put:
+      summary: Update a room (Admin only)
+      tags: [Rooms]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 68c97476fa5cecfcbd57f88c
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Phòng Suite Updated
+                description:
+                  type: string
+                  example: Phòng cao cấp cập nhật
+                price:
+                  type: number
+                  example: 250
+                capacity:
+                  type: number
+                  example: 3
+                available:
+                  type: boolean
+                  example: true
+              required: [name, description, price, capacity]
+      responses:
+        '200':
+          description: Room updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized (missing/invalid token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden (not admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a room (Admin only)
+      tags: [Rooms]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 68c97476fa5cecfcbd57f88c
+      responses:
+        '200':
+          description: Room deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Room deleted
+        '401':
+          description: Unauthorized (missing/invalid token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden (not admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/bookings:
+    post:
+      summary: Create a new booking
+      tags: [Bookings]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  example: 68c97476fa5cecfcbd57f88c
+                checkIn:
+                  type: string
+                  format: date
+                  example: 2025-10-10
+                checkOut:
+                  type: string
+                  format: date
+                  example: 2025-10-12
+              required: [roomId, checkIn, checkOut]
+      responses:
+        '201':
+          description: Booking created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '400':
+          description: Invalid input or room not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized (missing/invalid token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Get bookings (user sees own, admin sees all)
+      tags: [Bookings]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+        '401':
+          description: Unauthorized (missing/invalid token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/bookings/cancel/{id}:
+    put:
+      summary: Cancel a booking (owner or admin)
+      tags: [Bookings]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 68c97476fa5cecfcbd57f893
+      responses:
+        '200':
+          description: Booking cancelled successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Booking cancelled
+        '401':
+          description: Unauthorized (missing/invalid token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden (not owner or admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Booking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/bookings/{id}:
+    delete:
+      summary: Delete a booking (owner or admin)
+      tags: [Bookings]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 68c97476fa5cecfcbd57f893
+      responses:
+        '200':
+          description: Booking deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Booking deleted
+        '401':
+          description: Unauthorized (missing/invalid token)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden (not owner or admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Booking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

@@ -413,6 +413,33 @@
           }
         }
       ]
+    },
+    {
+      "name": "Delete Booking",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/bookings/{{bookingId}}",
+        "header": [
+          { "key": "x-auth-token", "value": "{{adminToken}}" }
+        ]
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Booking deleted', function () {",
+              "    pm.expect(pm.response.json().msg).to.equal('Booking deleted');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
     }
   ],
   "variable": [
